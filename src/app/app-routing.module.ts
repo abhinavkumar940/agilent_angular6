@@ -6,15 +6,20 @@ import { PostComponent } from "./_components/post/post.component";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./_components/login/login.component";
 import { LayoutComponent } from "./_components/layout/layout.component";
+import { AuthGuard } from "./_guards/auth.guard";
+import { ContactComponent } from "./_components/contact/contact.component";
 
 const routes: Routes = [
   {
     path: "login",
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "",
     component: LayoutComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: "",
@@ -23,6 +28,10 @@ const routes: Routes = [
       {
         path: "about",
         component: AboutComponent
+      },
+      {
+        path: "contact",
+        component: ContactComponent
       },
       {
         path: "posts/:id",
